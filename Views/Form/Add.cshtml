@@ -1,0 +1,13 @@
+﻿@using ClassLibrary1
+ @model List<Book>
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add</h2>
+@foreach (Book a in Model)
+{
+   <p>@a.Name</p>
+}
+
+

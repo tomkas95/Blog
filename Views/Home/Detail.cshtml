@@ -1,0 +1,37 @@
+﻿@using ClassLibrary1
+@model Book
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Detail of selected book @Model.Name</h2>
+<p><b>Author:</b> @Model.Author</p>
+<p><b>Year published:</b> @Model.Published</p>
+
+@if (Model.Description != null)
+{<p><i>Description:</i></p>}
+
+@Html.Raw(@Model.Description)
+
+
+@if (!string.IsNullOrEmpty(Model.ImageName))
+{
+    <img src="@Url.Content("~/Uploads/Book/" + Model.ImageName)" />
+}
+
+@{
+    if (@Model.Id > 1)
+    {
+        @section minus { @Url.Action("Detail", "Home", new { id = (Model.Id - 1) }) }
+    }
+    else
+    {
+        @section diss { disabled }
+    }
+    if (Model.Id < ClassLibrary1.Books.GetBooks.Count())
+    {
+        @section plus { @Url.Action("Detail", "Home", new { id = (Model.Id + 1) }) }
+    }
+    else
+    { @section dissabl { disabled }}
+}

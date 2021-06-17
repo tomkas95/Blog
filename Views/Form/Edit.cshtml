@@ -1,0 +1,53 @@
+﻿@model ClassLibrary1.Book
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>@Model.Name - Editace </h2>
+
+@Html.ValidationSummary()
+@using (Html.BeginForm("Update", "Form", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" })) // abychom mohli vkladat binarni data - obrazek, je potreba dodat enctype
+{
+    @Html.HiddenFor(x => x.Id);
+@Html.HiddenFor(x=>x.ImageName)
+    <div class="mb-3">
+        @*@Html.HiddenFor(x => x.Id, new { @class = "form-control" }) *@
+        @Html.LabelFor(x => x.Name, "Name", new { @class = "form-label" })
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Name)
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(x => x.Author, "Author", new { @class = "form-label" })
+        @Html.TextBoxFor(x => x.Author, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Author)
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(x => x.Published, "Published", new { @class = "form-label" })
+        @Html.TextBoxFor(x => x.Published, new { @class = "form-control", style = "width:200px" })
+        @Html.ValidationMessageFor(x => x.Published)
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(x => x.Category, "Category", new { @class = "form-label" })
+        @Html.DropDownList("categoryId", new SelectList(ViewBag.Categories, "Id", "Name", Model.Category.Id), new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Category)
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(x => x.Description, "Description", new { @class = "form-label" })
+        @Html.TextBoxFor(x => x.Description, new { @class = "form-control formatedtext" }) <!-- formatedtext neni pro urceni css stylu ale pro identifikaci-->
+
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(x => x.ImageName, "Picture", new { @class = "form-label" })
+        <input type="file" name="picture" />
+        @if (!string.IsNullOrEmpty(Model.ImageName))
+        {
+            <img src="@Url.Content("~/uploads/book/"+Model.ImageName)" />
+        }
+    </div>
+    <button type="submit" class="btn btn-primary">Edit book</button>
+
+
+
+}
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>tinymce.init({ selector: '.formatedtext' });</script> <!-- každá textarea s class formatedtext se přepne do režimu tinymce-->

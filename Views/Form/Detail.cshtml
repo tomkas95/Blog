@@ -1,0 +1,15 @@
+﻿@using ClassLibrary1
+@model Post
+@{
+    ViewBag.Title = "DetailPost";
+}
+
+<h1>@Model.PostName</h1>
+<h4>@Model.PostHead</h4>
+<p>@Html.Raw(@Model.PostBody)</p>
+<h2>@Model.ImageName</h2>
+
+<nav class="blog-pagination">
+    <a class="btn btn-outline-primary @RenderSection("diss", false)" href="@RenderSection("minus", false)">Older</a>
+    <a class="btn btn-outline-secondary @RenderSection("dissabl", false)" href="@RenderSection("plus", false)" tabindex="-1" aria-disabled="true">Newer</a>
+</nav>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="ClassLibrary1" namespace="ClassLibrary1">
+
+	<class name="Book" table="book">
+		<id name="Id" column="id">
+			<generator class="native" />
+		</id>
+		<property name="Name" column="name"/>
+		<property name="Author" column="author" />
+		<property name="Published" column="published_year" />
+		<property name="Description" column="description" />
+		<property name="ImageName" column="image_name" />
+		<many-to-one name="Category" column="category_id" foreign-key="category_id"/>
+		
+	</class>
+</hibernate-mapping>

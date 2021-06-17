@@ -1,0 +1,37 @@
+﻿@using ClassLibrary1
+@model IList<Post>
+@{
+    ViewBag.Title = "Posts";
+    int a = 1;
+}
+
+<h2>Posts:</h2>
+<button type="button" class="btn btn-link" onclick="location.href='@Url.Action("CreatePost","Form")'">New post</button>
+<div class="clearfix"></div>
+<table class="table">
+    <thead style="background-color: Highlight; color: white">
+        <tr>
+            <th>N.</th>
+            <th>Name</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Post item in Model)
+        {
+        <tr>
+            <td>@(a++)</td>
+            <td><a href="@Url.Action("Detail", "Form", new {id=item.Id})">@item.PostName</a></td>
+            <td>@item.Date</td>
+            <td>
+                @Html.ActionLink("Edit", "EditPost", "Form", new { id = item.Id }, null)
+                @Html.ActionLink("Delete", "DeletePost", "Form", new { id = item.Id }, new { onclick = "return confirm('Přejete si opravdu smazat článek " + item.PostName + " ?');" })
+            </td>
+
+        </tr>
+
+
+        }
+    </tbody>
+</table>
+

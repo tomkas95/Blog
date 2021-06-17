@@ -1,0 +1,50 @@
+﻿@using ClassLibrary1
+@model IList<Book>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Výpis knih</h2>
+<button type="button" class="btn btn-link" onclick="location.href='@Url.Action("Create","Form")'">Nová kniha</button>
+<div class="clearfix"></div>
+<table class="table">
+    <thead style="background-color: Highlight; color: white">
+        <tr>
+            <th>Image</th>
+            <th>Id</th>
+            <th>Author</th>
+            <th>Name</th>
+            <th>Published</th>
+            <th>Action</th>
+            
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (Book book in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(book.ImageName))
+                    {
+                        <img src="@Url.Content("~/Uploads/Book/" + book.ImageName)" />
+                    }
+                </td>
+                <td>@book.Id</td>
+                <td>@book.Author</td>
+                <td><a href="@Url.Action("Detail", "Home", new { id = book.Id })">@book.Name</a></td>
+                <td>@book.Published</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Form", new { id = book.Id }, null)
+                    @Html.ActionLink("Delete", "Delete", "Form", new { id = book.Id }, new {onclick="return confirm('Přejete si opravdu smazat knihu "+book.Name+" ?');" } )
+                </td>
+                
+
+            </tr>
+        }
+
+    </tbody>
+</table>
+
